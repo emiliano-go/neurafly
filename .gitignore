@@ -1,0 +1,5 @@
+/target
+data/proofread_connections_783.feather
+*.log
+*.mp3
+__pycache__/
