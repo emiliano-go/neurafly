@@ -1,0 +1,15 @@
+[package]
+name = "neurafly"
+version = "0.2.0"
+edition = "2021"
+
+[dependencies]
+crossterm = "0.28"
+rustfft = "6"
+cpal = "0.16"
+symphonia = { version = "0.5", features = ["mp3", "ogg", "flac", "wav"] }
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3
