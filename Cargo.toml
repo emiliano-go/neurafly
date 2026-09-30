@@ -2,6 +2,12 @@
 name = "neurafly"
 version = "0.2.0"
 edition = "2021"
+description = "Real audio in, real neurons firing, real time. A terminal audio visualizer driven by a FlyWire connectome."
+license = "MIT"
+repository = "https://github.com/emiliano-go/neurafly"
+readme = "README.md"
+keywords = ["audio", "visualizer", "terminal", "tui", "connectome"]
+categories = ["command-line-utilities", "multimedia::audio"]
 
 [dependencies]
 crossterm = "0.28"

@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - name: System audio deps
+        run: sudo apt-get update && sudo apt-get install -y libasound2-dev pkg-config
+      # ponytail: clippy warnings are non-fatal and fmt is not gated yet; the
+      # existing tree is not rustfmt-clean. Add `cargo fmt --check` after a fmt pass.
+      - name: Clippy
+        run: cargo clippy --all-targets
+      - name: Test
+        run: cargo test --locked

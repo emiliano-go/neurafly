@@ -38,7 +38,8 @@ pub struct Sim {
 }
 
 /// connectome search order: cwd data dir (repo checkout), then the
-/// user-wide data dir the installer populates, then the executable's dir
+/// user-wide data dir the installer populates, then the executable's dir,
+/// then the system data dir used by distro/AUR packages
 fn net_candidates() -> Vec<std::path::PathBuf> {
     let mut v = vec![std::path::PathBuf::from("data/flywire_net.bin")];
     if let Some(home) = std::env::var_os("HOME") {
@@ -49,7 +50,22 @@ fn net_candidates() -> Vec<std::path::PathBuf> {
             v.push(dir.join("flywire_net.bin"));
         }
     }
+    v.push(std::path::PathBuf::from("/usr/share/neurafly/flywire_net.bin"));
     v
+}
+
+#[cfg(test)]
+mod tests {
+    use super::net_candidates;
+
+    #[test]
+    fn net_candidates_include_known_locations() {
+        let v = net_candidates();
+        assert!(v.iter().any(|p| p.ends_with("data/flywire_net.bin")));
+        assert!(v
+            .iter()
+            .any(|p| p == std::path::Path::new("/usr/share/neurafly/flywire_net.bin")));
+    }
 }
 
 impl Sim {
