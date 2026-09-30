@@ -8,6 +8,9 @@ repository = "https://github.com/emiliano-go/neurafly"
 readme = "README.md"
 keywords = ["audio", "visualizer", "terminal", "tui", "connectome"]
 categories = ["command-line-utilities", "multimedia::audio"]
+# keep the published crate under crates.io's 10 MB limit; the 18 MB connectome
+# ships with the repo/release, not the crate (binary falls back to a synthetic net)
+exclude = ["data/flywire_net.bin", "assets", "packaging"]
 
 [dependencies]
 crossterm = "0.28"
