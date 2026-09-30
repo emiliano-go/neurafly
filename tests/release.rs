@@ -42,5 +42,15 @@ fn main() {
         "AUR sha256sums is not a pinned 64-hex digest: {sums}"
     );
 
+    // On a tag build, the git tag must be v<version>.
+    if std::env::var("GITHUB_REF_TYPE").as_deref() == Ok("tag") {
+        let tag = std::env::var("GITHUB_REF_NAME").unwrap_or_default();
+        assert_eq!(
+            tag,
+            format!("v{version}"),
+            "git tag ({tag}) and Cargo version ({version}) differ"
+        );
+    }
+
     println!("release consistency ok: neurafly {version}");
 }
