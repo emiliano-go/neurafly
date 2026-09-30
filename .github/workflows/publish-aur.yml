@@ -15,6 +15,18 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y libasound2-dev pkg-config
       - name: Verify release consistency
         run: cargo test --test release -- --prerelease
+      - name: Verify AUR source checksum matches the tag tarball
+        run: |
+          set -euo pipefail
+          version="$(sed -n 's/^pkgver=//p' packaging/aur/PKGBUILD)"
+          expected="$(sed -n "s/^sha256sums=('\([0-9a-f]*\)')/\1/p" packaging/aur/PKGBUILD)"
+          url="https://github.com/emiliano-go/neurafly/archive/refs/tags/v${version}.tar.gz"
+          echo "tarball:  $url"
+          echo "expected: $expected"
+          curl -fsSL "$url" -o /tmp/neurafly-src.tar.gz
+          actual="$(sha256sum /tmp/neurafly-src.tar.gz | cut -d' ' -f1)"
+          echo "actual:   $actual"
+          [ "$actual" = "$expected" ]
       - name: Publish to AUR
         uses: KSXGitHub/github-actions-deploy-aur@v4.1.1
         with:
