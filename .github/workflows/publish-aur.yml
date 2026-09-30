@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: System audio deps
+        run: sudo apt-get update && sudo apt-get install -y libasound2-dev pkg-config
+      - name: Verify release consistency
+        run: cargo test --test release -- --prerelease
       - name: Publish to AUR
         uses: KSXGitHub/github-actions-deploy-aur@v4.1.1
         with:

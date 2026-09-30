@@ -22,3 +22,7 @@ symphonia = { version = "0.5", features = ["mp3", "ogg", "flac", "wav"] }
 lto = true
 codegen-units = 1
 opt-level = 3
+
+[[test]]
+name = "release"
+harness = false

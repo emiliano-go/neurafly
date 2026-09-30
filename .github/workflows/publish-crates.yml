@@ -17,6 +17,8 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - name: System audio deps
         run: sudo apt-get update && sudo apt-get install -y libasound2-dev pkg-config
+      - name: Verify release consistency
+        run: cargo test --test release -- --prerelease
       - name: Authenticate with crates.io (OIDC)
         uses: rust-lang/crates-io-auth-action@v1
         id: auth
