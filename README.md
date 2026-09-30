@@ -16,6 +16,18 @@ tricks: it listens to whatever your PC is currently playing.
 Requirements: Rust (stable), a Linux desktop with PulseAudio or PipeWire
 (for system-audio capture), and a terminal with Unicode braille support.
 
+### Arch Linux (AUR)
+
+The [`neurafly`](https://aur.archlinux.org/packages/neurafly) package installs
+the binary to `/usr/bin/neurafly` and the connectome to
+`/usr/share/neurafly/flywire_net.bin`:
+
+```sh
+yay -S neurafly     # or: paru -S neurafly
+```
+
+### From source
+
 ```sh
 git clone https://github.com/emiliano-go/neurafly.git
 cd neurafly
@@ -154,3 +166,7 @@ for bright), so the visual adapts to whatever theme you already use.
   https://doi.org/10.5281/zenodo.10676865
 - Dorkenwald et al., "Neuronal wiring diagram of an adult brain",
   Nature (2024)
+
+## License
+
+MIT — see [LICENSE](LICENSE).
