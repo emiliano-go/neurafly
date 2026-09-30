@@ -64,7 +64,7 @@ struct Orb {
 
 pub struct Figure {
     // ratio state machine (hysteresis + min dwell); displayed in the status
-    // line — the shape itself stays circular regardless of ratio
+    // line; the shape itself stays circular regardless of ratio
     cur: usize,
     dwell: f32, // seconds since last accepted ratio change
     // slow per-group running means: dominance is judged RELATIVE to each
@@ -175,7 +175,7 @@ impl Figure {
         self.mapping = m;
     }
 
-    /// Hard reset of every visible envelope — the end state of a collapse.
+    /// Hard reset of every visible envelope: the end state of a collapse.
     pub fn snap_off(&mut self) {
         self.hx = [0.0; NH];
         self.hy = [0.0; NH];
@@ -230,7 +230,7 @@ impl Figure {
         self.rot
     }
 
-    /// debris particles: (x, y, vx, vy, brightness 0..1, source band) —
+    /// debris particles: (x, y, vx, vy, brightness 0..1, source band);
     /// velocity included so the renderer can draw fire-style motion trails;
     /// the band lets the renderer color each instrument range differently
     pub fn particles(&self) -> impl Iterator<Item = (f32, f32, f32, f32, f32, u8)> + '_ {
@@ -240,7 +240,7 @@ impl Figure {
     }
 
     /// knots: short radial strands that dart OUT of the rim, kink, and come
-    /// back — bands 13-15 (violin/flute low). Yields (x1, y1, x2, y2, bright)
+    /// back: bands 13-15 (violin/flute low). Yields (x1, y1, x2, y2, bright)
     /// as an out-and-back polyline drawn in the rim's own frame.
     pub fn knots(&self) -> impl Iterator<Item = (f32, f32, f32, f32, f32)> + '_ {
         (13..16.min(NS)).filter_map(move |b| {
@@ -261,7 +261,7 @@ impl Figure {
     }
 
     /// orbiting particles: (x, y, trail_x, trail_y, brightness, inner).
-    /// trail_* is the orbiter's position a moment ago — the renderer draws
+    /// trail_* is the orbiter's position a moment ago; the renderer draws
     /// the fire-style trail from there to (x, y). String orbiters thread the
     /// donut in 3D (over/under the ring); outer ones fly further out.
     pub fn orbits(&self) -> impl Iterator<Item = (f32, f32, f32, f32, f32, bool)> + '_ {
@@ -294,7 +294,7 @@ impl Figure {
     }
 
     /// tether: a SINGLE chord strung across the disk between the hottest
-    /// voice slot (10-12) and the hottest strings slot (13-15) — one taut
+    /// voice slot (10-12) and the hottest strings slot (13-15); one taut
     /// string, not a web of criss-crossing lines.
     /// Yields (x1, y1, x2, y2, bright).
     pub fn tethers(&self) -> impl Iterator<Item = (f32, f32, f32, f32, f32)> + '_ {
@@ -541,7 +541,7 @@ impl Figure {
 
         // -- rotation & spin lock to the BEAT, and ONLY to the beat: every
         // detected onset steps the target angle by a quarter turn and the
-        // disk chases it smoothly, landing ON the beat. No idle drift —
+        // disk chases it smoothly, landing ON the beat. No idle drift;
         // during monotone segments there are no onsets, so the disk holds
         // perfectly still until the beat comes back. Static mode freezes.
         if beat_fired && !self.static_on {
@@ -646,7 +646,7 @@ impl Figure {
         // produces alone. Range activity = hottest slot in the range.
         //   drums 8-9  + bass body 4-7   -> shockwave ring pulses
         //   strings 13-15 + cymbals 22-23 -> white sparkles inside the disk
-        // (tethers, corona flares and glitch dashes are stateless — computed
+        // (tethers, corona flares and glitch dashes are stateless; computed
         // on the fly by the render iterators from the current slots)
         let c_shock = self.ract(8, 10).min(self.ract(4, 8));
         if c_shock > 0.45 && self.pulses.len() < 8 && rng() < c_shock * 0.10 {
@@ -699,7 +699,7 @@ impl Figure {
     /// Base shape with bass size + beat, before region bumps and rotation.
     /// Fundamentally CIRCULAR: every harmonic is a small quadrature
     /// epicycle (its own little circle) stacked on the main circle, so the
-    /// result is always a smooth rounded disk — never a starfish.
+    /// result is always a smooth rounded disk; never a starfish.
     fn base_point(&self, u: f32) -> (f32, f32) {
         let a0 = (self.hx[0] + self.hy[0]) * 0.5;
         let th0 = TAU * u + self.phx[0];
@@ -729,7 +729,7 @@ impl Figure {
 
     /// 3D projection: tilt the disk by `tilt` about the axis lying in the
     /// disk plane at angle `tilt_axis` (which slowly precesses, so the
-    /// tumble is multidirectional — the squash axis wanders around the disk).
+    /// tumble is multidirectional; the squash axis wanders around the disk).
     fn project(&self, x: f32, y: f32, z: f32) -> (f32, f32) {
         let (sa, ca) = self.tilt_axis.sin_cos();
         let (st, ct) = self.tilt.sin_cos();
@@ -743,7 +743,7 @@ impl Figure {
     }
 
     /// Point on the closed curve; u in [0,1] around the loop. ALWAYS a pure
-    /// tilted circle — rim integrity is never compromised by anomalies.
+    /// tilted circle; rim integrity is never compromised by anomalies.
     pub fn shape_point(&self, u: f32) -> (f32, f32) {
         let (bx, by) = self.base_point(u);
         let (s, c) = self.rot.sin_cos();

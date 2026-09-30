@@ -78,7 +78,7 @@ def main():
     pre_i = np.searchsorted(nodes, pre_u).astype(np.int32)
     post_i = np.searchsorted(nodes, post_u).astype(np.int32)
 
-    # edge sign: fly neurochem — ACh excitatory, GABA + glutamate inhibitory
+    # edge sign: fly neurochem, ACh excitatory, GABA + glutamate inhibitory
     if gaba_u is not None:
         inhib_edge = (gaba_u + glut_u) > ach_u
     else:
@@ -122,7 +122,7 @@ def main():
     u01 = ((h * np.uint64(0x2545F4914F6CDD1D)) >> np.uint64(11)).astype(np.float64) / float(1 << 53)
     thr = (0.70 + u01 * 0.65).astype(np.float32)
 
-    # layout: raster order sorted by (mean post position unknown) — use
+    # layout: raster order sorted by (mean post position unknown); use
     # root-id hash to scatter, then smooth into a square grid so the map is
     # evenly filled
     gw = int(np.ceil(np.sqrt(N)))

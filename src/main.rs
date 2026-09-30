@@ -1,4 +1,4 @@
-//! NEURAFLY v0.2 (was neural-beam-scope) — Aloboi edition (Rust)
+//! NEURAFLY v0.2 (was neural-beam-scope), Aloboi edition (Rust)
 //! audio → bands/onsets → current injection → spiking network → pool activities
 //!       → figure params → oscillator bank → beam → braille phosphor → terminal
 
@@ -215,7 +215,7 @@ impl App {
             self.canvas.line(p.0, p.1, q.0, q.1, intensity * 0.7 * bright, 2);
         }
         // debris particles: fire-style motion trails, colored by source
-        // band range — red embers (8-9), yellow mids (10-17), cyan air (18+),
+        // band range: red embers (8-9), yellow mids (10-17), cyan air (18+),
         // white sparkles (30, combo strings+cymbals)
         for (px, py, vx, vy, bright, band) in self.fig.particles() {
             let p = to_px((px, py));
@@ -226,7 +226,7 @@ impl App {
                 .dot(p.0 as f32, p.1 as f32, intensity * 0.9 * bright, col);
         }
         // knots: strands darting out of the rim and back (bands 13-15,
-        // violin/flute low) — drawn in magenta so they read as filaments
+        // violin/flute low), drawn in magenta so they read as filaments
         for (x1, y1, x2, y2, bright) in self.fig.knots() {
             let p = to_px((x1, y1));
             let q = to_px((x2, y2));
@@ -299,7 +299,7 @@ impl App {
     /// Neuron map: every neuron owns a fixed cell (its connectome layout
     /// position), mapped onto the WHOLE screen; many neurons may share a
     /// cell, which then lights with the max of them. The glyph never moves
-    /// and never changes — always '·' — it only lights up (bold) while the
+    /// and never changes; always '·'; it only lights up (bold) while the
     /// neuron fires, then dims back.
     fn draw_grid_rows(&mut self) -> Vec<String> {
         for i in 0..self.sim.n {
@@ -524,7 +524,7 @@ impl App {
             }
 
             // input (drain all pending keys). NB: poll(ZERO) never reads the
-            // OS fd on crossterm 0.28, so keys would never arrive — use 1ms.
+            // OS fd on crossterm 0.28, so keys would never arrive; use 1ms.
             while event::poll(Duration::from_millis(1))? {
                 if let Event::Key(k) = event::read()? {
                     if k.kind == KeyEventKind::Press {
@@ -655,7 +655,7 @@ fn diag() {
 
 /// Decay probe: drive hard for 5 s, then cut ALL input (coupling stays 1)
 /// and print how the network rate decays. If the field is self-sustaining,
-/// the rate never falls — which would explain the disk lingering after the
+/// the rate never falls, which would explain the disk lingering after the
 /// music stops.
 fn diag_decay() {
     let mut sim = Sim::new(42);

@@ -169,4 +169,4 @@ for bright), so the visual adapts to whatever theme you already use.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT; see [LICENSE](LICENSE).

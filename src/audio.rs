@@ -15,7 +15,7 @@ use rustfft::{num_complex::Complex32, FftPlanner};
 
 pub const SR: u32 = 44100;
 pub const FFT_N: usize = 2048;
-/// 24 log-spaced bands 40 Hz .. 12 kHz — one per instrument family slot:
+/// 24 log-spaced bands 40 Hz .. 12 kHz; one per instrument family slot:
 /// 0-3 sub/bass (diameter), 4-7 low-mid body (rim bumps), 8+ mids..air
 /// (anomalies: each band = one golden-angle slot = one instrument range).
 pub const NB: usize = 24;
@@ -82,17 +82,17 @@ pub struct AudioEngine {
     /// last frame's normalized per-band peakiness (diagnostics/tuning)
     pub last_pk: [f32; NB],
     /// share of total spectral energy in bands 0-3 (volume-independent,
-    /// never saturates) — drives the disk DIAMETER and the beat pump
+    /// never saturates); drives the disk DIAMETER and the beat pump
     pub bass_share: f32,
     agc_rms: f32, // slow-decay running peak for auto-gain
     /// per-band rolling spectral floor (dB): bands are judged against their
     /// OWN history, so violins 30 dB under the bass still light their band
     band_floor: [f32; NB],
-    /// 1 while real samples are arriving, decays to 0 in ~1 s of silence —
+    /// 1 while real samples are arriving, decays to 0 in ~1 s of silence;
     /// used to gate the sim's noise floor so the field dies when audio stops
     pub act_env: f32,
     /// smoothed RAW (pre-AGC) loudness 0..1: follows the actual volume knob,
-    /// unlike the normalized bands — drives disk size
+    /// unlike the normalized bands; drives disk size
     pub loud_raw: f32,
     // playback plumbing (demo/file)
     playbuf: Arc<Vec<(f32, f32)>>,
@@ -748,14 +748,14 @@ impl AudioEngine {
         let share: f32 = eraw[0..4].iter().sum::<f32>() / etot;
         self.bass_share += (share - self.bass_share) * 0.15;
         // Onset detection: Böck-style log-domain spectral flux. Positive
-        // diffs are computed on the log-magnitude bands directly — linear or
+        // diffs are computed on the log-magnitude bands directly; linear or
         // normalized values squash exactly the transients we want, which is
         // what skipped beats in loud/dense passages.
         let mut lflux = 0.0f32;
         let mut str_act = 0.0f32;
         for b in 0..NB {
             // Per-band self-normalization: each band is judged against its
-            // OWN rolling floor. The up-rate is very slow (~40 s — cava's
+            // OWN rolling floor. The up-rate is very slow (~40 s, cava's
             // autosens is 20:1 asymmetric the same way) so a sustained
             // string section keeps playing instead of being absorbed after
             // ~10 s; the down rate (~2 s) resets quickly between songs.
@@ -780,7 +780,7 @@ impl AudioEngine {
             }
             // per-band onset: fires when THIS band jumps vs its own running
             // flux. The floor (0.4 ≈ 9 dB) keeps broadband kicks from
-            // firing every band at once — each drum owns its own bands.
+            // firing every band at once; each drum owns its own bands.
             self.band_favg[b] += (df - self.band_favg[b]) * 0.05;
             let bthr = self.band_favg[b] * 1.8 + 0.4;
             if df > bthr && self.bonset[b] < 0.4 {
@@ -801,7 +801,7 @@ impl AudioEngine {
         }
         // sustained-tonal detector: string bands (546 Hz - 2.9 kHz) holding
         // level. Slow EMA (~1.5 s): percussion spikes don't accumulate,
-        // bows and pads do. (A flux penalty was tried and rejected — it
+        // bows and pads do. (A flux penalty was tried and rejected; it
         // kills rhythmic string ostinatos, which ARE strings.)
         let str_tgt = (str_act / 7.0 * 2.2).min(1.0);
         self.tonal += (str_tgt - self.tonal) * 0.025;
