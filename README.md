@@ -1,5 +1,8 @@
 # neurafly
 
+[![CI](https://github.com/emiliano-go/neurafly/actions/workflows/ci.yml/badge.svg)](https://github.com/emiliano-go/neurafly/actions/workflows/ci.yml)
+[![crates.io](https://img.shields.io/crates/v/neurafly.svg)](https://crates.io/crates/neurafly)
+
 A terminal audio visualizer that runs your music through the actual FlyWire
 whole-brain connectome (138,333 proofread neurons, 2,052,622 weighted
 synapses from the adult female fly brain, release v783) and draws the result
@@ -25,6 +28,16 @@ the binary to `/usr/bin/neurafly` and the connectome to
 ```sh
 yay -S neurafly     # or: paru -S neurafly
 ```
+
+### From crates.io
+
+```sh
+cargo install neurafly
+```
+
+The crate ships without the 18 MB connectome (size limits), so this build
+falls back to the small synthetic network. For the real FlyWire connectome,
+use the AUR package or the source install below.
 
 ### From source
 
