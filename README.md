@@ -1,7 +1,7 @@
 # neurafly
 
-[![CI](https://github.com/emiliano-go/neurafly/actions/workflows/ci.yml/badge.svg)](https://github.com/emiliano-go/neurafly/actions/workflows/ci.yml)
-[![crates.io](https://img.shields.io/crates/v/neurafly.svg)](https://crates.io/crates/neurafly)
+[![CI](https://img.shields.io/github/actions/workflow/status/emiliano-go/neurafly/ci.yml?label=CI&style=flat-square)](https://github.com/emiliano-go/neurafly/actions/workflows/ci.yml)
+[![crates.io](https://img.shields.io/crates/v/neurafly?style=flat-square)](https://crates.io/crates/neurafly)
 
 A terminal audio visualizer that runs your music through the actual FlyWire
 whole-brain connectome (138,333 proofread neurons, 2,052,622 weighted
