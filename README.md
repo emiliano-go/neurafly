@@ -1,7 +1,19 @@
 # neurafly
 
-[![CI](https://img.shields.io/github/actions/workflow/status/emiliano-go/neurafly/ci.yml?label=CI&style=flat&logo=githubactions&logoColor=white&v=2)](https://github.com/emiliano-go/neurafly/actions/workflows/ci.yml)
-[![crates.io](https://img.shields.io/crates/v/neurafly?style=flat&logo=rust&logoColor=white&v=2)](https://crates.io/crates/neurafly)
+<p align="center">
+  <a href="https://github.com/emiliano-go/neurafly/actions/workflows/ci.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/emiliano-go/neurafly/ci.yml?label=CI&logo=githubactions&logoColor=white&style=for-the-badge" alt="CI">
+  </a>
+  <a href="https://crates.io/crates/neurafly">
+    <img src="https://img.shields.io/crates/v/neurafly?logo=rust&logoColor=white&style=for-the-badge" alt="crates.io">
+  </a>
+  <a href="https://aur.archlinux.org/packages/neurafly">
+    <img src="https://img.shields.io/aur/version/neurafly?logo=archlinux&logoColor=white&style=for-the-badge" alt="AUR">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-10AC84?style=for-the-badge" alt="License">
+  </a>
+</p>
 
 A terminal audio visualizer that runs your music through the actual FlyWire
 whole-brain connectome (138,333 proofread neurons, 2,052,622 weighted
